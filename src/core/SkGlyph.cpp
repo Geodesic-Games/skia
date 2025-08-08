@@ -489,60 +489,63 @@ static std::tuple<SkScalar, SkScalar> calculate_path_gap(
         }
     };
 
-    SkPath::Iter iter(path, false);
-    SkPath::Verb verb;
-    while (SkPath::kDone_Verb != (verb = iter.next(pts))) {
-        switch (verb) {
-            case SkPath::kMove_Verb: {
-                break;
-            }
-            case SkPath::kLine_Verb: {
-                auto [lineTop, lineBottom] = std::minmax({pts[0].fY, pts[1].fY});
+    // Commented out section to workaround linker issues when used as a static lib related
+    // to std::minmax symbol
 
-                // The y-coordinates of the points intersect the top and bottom offsets.
-                if (topOffset <= lineBottom && lineTop <= bottomOffset) {
-                    addLine(topOffset);
-                    addLine(bottomOffset);
-                    addPts(2);
-                }
-                break;
-            }
-            case SkPath::kQuad_Verb: {
-                auto [quadTop, quadBottom] = std::minmax({pts[0].fY, pts[1].fY, pts[2].fY});
-
-                // The y-coordinates of the points intersect the top and bottom offsets.
-                if (topOffset <= quadBottom && quadTop <= bottomOffset) {
-                    addQuad(topOffset);
-                    addQuad(bottomOffset);
-                    addPts(3);
-                }
-                break;
-            }
-            case SkPath::kConic_Verb: {
-                SkDEBUGFAIL("There should be no conic primitives in glyph outlines.");
-                break;
-            }
-            case SkPath::kCubic_Verb: {
-                auto [cubicTop, cubicBottom] =
-                        std::minmax({pts[0].fY, pts[1].fY, pts[2].fY, pts[3].fY});
-
-                // The y-coordinates of the points intersect the top and bottom offsets.
-                if (topOffset <= cubicBottom && cubicTop <= bottomOffset) {
-                    addCubic(topOffset);
-                    addCubic(bottomOffset);
-                    addPts(4);
-                }
-                break;
-            }
-            case SkPath::kClose_Verb: {
-                break;
-            }
-            default: {
-                SkDEBUGFAIL("Unknown path verb generating glyph underline.");
-                break;
-            }
-        }
-    }
+    // SkPath::Iter iter(path, false);
+    // SkPath::Verb verb;
+    // while (SkPath::kDone_Verb != (verb = iter.next(pts))) {
+    //     switch (verb) {
+    //         case SkPath::kMove_Verb: {
+    //             break;
+    //         }
+    //         case SkPath::kLine_Verb: {
+    //             auto [lineTop, lineBottom] = std::minmax({pts[0].fY, pts[1].fY});
+    //
+    //             // The y-coordinates of the points intersect the top and bottom offsets.
+    //             if (topOffset <= lineBottom && lineTop <= bottomOffset) {
+    //                 addLine(topOffset);
+    //                 addLine(bottomOffset);
+    //                 addPts(2);
+    //             }
+    //             break;
+    //         }
+    //         case SkPath::kQuad_Verb: {
+    //             auto [quadTop, quadBottom] = std::minmax({pts[0].fY, pts[1].fY, pts[2].fY});
+    //
+    //             // The y-coordinates of the points intersect the top and bottom offsets.
+    //             if (topOffset <= quadBottom && quadTop <= bottomOffset) {
+    //                 addQuad(topOffset);
+    //                 addQuad(bottomOffset);
+    //                 addPts(3);
+    //             }
+    //             break;
+    //         }
+    //         case SkPath::kConic_Verb: {
+    //             SkDEBUGFAIL("There should be no conic primitives in glyph outlines.");
+    //             break;
+    //         }
+    //         case SkPath::kCubic_Verb: {
+    //             auto [cubicTop, cubicBottom] =
+    //                     std::minmax({pts[0].fY, pts[1].fY, pts[2].fY, pts[3].fY});
+    //
+    //             // The y-coordinates of the points intersect the top and bottom offsets.
+    //             if (topOffset <= cubicBottom && cubicTop <= bottomOffset) {
+    //                 addCubic(topOffset);
+    //                 addCubic(bottomOffset);
+    //                 addPts(4);
+    //             }
+    //             break;
+    //         }
+    //         case SkPath::kClose_Verb: {
+    //             break;
+    //         }
+    //         default: {
+    //             SkDEBUGFAIL("Unknown path verb generating glyph underline.");
+    //             break;
+    //         }
+    //     }
+    // }
 
     return std::tie(left, right);
 }
