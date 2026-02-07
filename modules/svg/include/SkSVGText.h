@@ -53,6 +53,12 @@ public:
 
     void appendChild(sk_sp<SkSVGNode>) final;
 
+    /** Added VW-HMI
+     *
+     * Getter to internal fChildren
+     */
+    const std::vector<sk_sp<SkSVGTextFragment>>& GetChildren() const { return fChildren; }
+
 protected:
     explicit SkSVGTextContainer(SkSVGTag t) : INHERITED(t) {}
 
