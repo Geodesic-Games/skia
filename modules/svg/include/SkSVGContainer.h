@@ -22,6 +22,9 @@ class SK_API SkSVGContainer : public SkSVGTransformableNode {
 public:
     void appendChild(sk_sp<SkSVGNode>) override;
 
+    /* Added VW-HMI: Getter to internal fChildren */
+    const skia_private::STArray<1, sk_sp<SkSVGNode>, true>& GetChildren() const { return fChildren; }
+
 protected:
     explicit SkSVGContainer(SkSVGTag);
 

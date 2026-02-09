@@ -21,6 +21,8 @@ struct SkRect;
 
 class SK_API SkSVGTransformableNode : public SkSVGNode {
 public:
+    /* Added VW-HMI: Simple getter to permit access to transform information that was parsed by Skia svg module. */
+    const SkSVGTransformType& getTransform() const { return fTransform; }
     void setTransform(const SkSVGTransformType& t) { fTransform = t; }
 
 protected:
