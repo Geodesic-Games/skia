@@ -26,7 +26,7 @@ public:
      *
      * Getter to internal fChildren
      */
-    const skia_private::STArray<1, sk_sp<SkSVGNode>, true>& GetFChildren() const { return fChildren; }
+    const skia_private::STArray<1, sk_sp<SkSVGNode>, true>& GetChildren() const { return fChildren; }
     
     /** Added VW-HMI
      *
