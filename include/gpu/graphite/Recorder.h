@@ -14,6 +14,7 @@
 #include "include/gpu/graphite/Recording.h"
 #include "include/private/base/SingleOwner.h"
 #include "include/private/base/SkTArray.h"
+#include "include/gpu/graphite/ImageProvider.h"
 
 #include <chrono>
 
@@ -42,7 +43,6 @@ class Context;
 class Device;
 class DrawBufferManager;
 class GlobalCache;
-class ImageProvider;
 class ProxyCache;
 class ProxyReadCountMap;
 class RecorderPriv;

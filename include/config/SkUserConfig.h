@@ -72,7 +72,7 @@
 
 /*  Change the kN32_SkColorType ordering to BGRA to work in X windows.
 */
-//#define SK_R32_SHIFT    16
+#define SK_R32_SHIFT    16
 
 /* Determines whether to build code that supports the Ganesh GPU backend. Some classes
    that are not GPU-specific, such as SkShader subclasses, have optional code
@@ -83,6 +83,10 @@
    the compiled version of Skia.
 */
 //#define SK_GANESH
+
+#ifndef SK_GANESH
+    #define SK_GANESH
+#endif
 
 /* Skia makes use of histogram logging macros to trace the frequency of
    events. By default, Skia provides no-op versions of these macros.
@@ -109,6 +113,10 @@
 //#define SK_NO_SANITIZE(A) __attribute__((no_sanitize(A)))
 //#define SK_TRIVIAL_ABI [[clang::trivial_abi]]
 
+#if defined(SK_BUILD_FOR_UNIX) || defined(SK_BUILD_FOR_ANDROID)
+    #define SK_TRIVIAL_ABI [[clang::trivial_abi]]
+#endif
+
 /*
  * If compiling Skia as a DLL, public APIs should be exported. Skia will set
  * SK_API to something sensible for Clang and MSVC, but if clients need to
@@ -118,5 +126,25 @@
  * this file.
  */
 //#define SK_API __declspec(dllexport)
+
+#ifndef SK_VULKAN
+    #define SK_VULKAN
+#endif
+
+#if defined(SK_DEBUG) || !defined(NDEBUG)
+    #ifndef SK_ENABLE_DUMP_GPU
+        #define SK_ENABLE_DUMP_GPU
+    #endif
+    // TODO: Update Android to define this, too.
+    #if defined(SK_BUILD_FOR_UNIX) || defined(SK_BUILD_FOR_WIN)
+        #ifndef GPU_TEST_UTILS
+            #define GPU_TEST_UTILS
+        #endif
+    #endif
+#endif
+
+#ifndef SK_GRAPHITE
+    #define SK_GRAPHITE
+#endif
 
 #endif

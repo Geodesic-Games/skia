@@ -51,6 +51,8 @@ public:
         };
     };
 
+    void init(skia_private::TArray<Info> instanceExtensions,
+              skia_private::TArray<Info> deviceExtensions);
 #ifdef SK_DEBUG
     void dump() const {
         SkDebugf("**Vulkan Extensions**\n");
