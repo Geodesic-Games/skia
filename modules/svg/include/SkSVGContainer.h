@@ -22,12 +22,11 @@ class SK_API SkSVGContainer : public SkSVGTransformableNode {
 public:
     void appendChild(sk_sp<SkSVGNode>) override;
 
-    /** Added VW-HMI
-     *
-     * Getter to internal fChildren
-     */
-    const skia_private::STArray<1, sk_sp<SkSVGNode>, true>& GetChildren() const { return fChildren; }
-    
+    /** Added VW-HMI: Getter to internal fChildren */
+    SkSpan<sk_sp<SkSVGNode>> getChildren() {
+        return SkSpan<sk_sp<SkSVGNode>>(fChildren.data(), fChildren.size());
+    }
+
     /** Added VW-HMI
      *
      * Variation of forEachChild that lets us iterate over the whole list of children
