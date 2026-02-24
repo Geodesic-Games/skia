@@ -93,12 +93,8 @@ public:
     /** Render the node with the given id as if it were the only child of the root. */
     void renderNode(SkCanvas*, SkSVGPresentationContext&, const char* id) const;
 
-    /**
-     * VW-HMI:
-     *
-     * Getter to internal fIDMapper
-     */
-    const SkSVGIDMapper& GetIDMapper() const { return fIDMapper; }
+    /* Added VW-HMI: Getter to internal fIDMapper */
+    const SkSVGIDMapper& getIDMapper() const { return fIDMapper; }
 
 private:
     SkSVGDOM(sk_sp<SkSVGSVG>,
