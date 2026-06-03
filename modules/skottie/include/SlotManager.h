@@ -58,11 +58,11 @@ public:
     std::optional<TextPropertyValue>     getTextSlot(const SlotID&) const;
 
     struct SlotInfo {
-        TArray<SlotID> fColorSlotIDs;
-        TArray<SlotID> fScalarSlotIDs;
-        TArray<SlotID> fVec2SlotIDs;
-        TArray<SlotID> fImageSlotIDs;
-        TArray<SlotID> fTextSlotIDs;
+        skia_private::TArray<SlotID> fColorSlotIDs;
+        skia_private::TArray<SlotID> fScalarSlotIDs;
+        skia_private::TArray<SlotID> fVec2SlotIDs;
+        skia_private::TArray<SlotID> fImageSlotIDs;
+        skia_private::TArray<SlotID> fTextSlotIDs;
     };
 
     // Helper function to get all slot IDs and their value types
@@ -94,7 +94,7 @@ private:
 
     class ImageAssetProxy;
     template <typename T>
-    using SlotMap = THashMap<SlotID, TArray<T>>;
+    using SlotMap = THashMap<SlotID, skia_private::TArray<T>>;
 
     SlotMap<ValuePair<ColorValue*>>                fColorMap;
     SlotMap<ValuePair<ScalarValue*>>               fScalarMap;
